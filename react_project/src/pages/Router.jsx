@@ -1,6 +1,6 @@
-import App from "../App";
 import HomePage from "./HomePage";
 import LayoutPage from "./LayoutPage";
+import MainLayout from "../layouts/MainLayout";
 import SearchBarPage from "./SearchBarPage";
 import TablePage from "./TablePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const browserRouter = createBrowserRouter([
 	{
 		path: "/",
-		element: <App />,
+		element: <MainLayout />,
 		children: [
 			{
 				index: true,
