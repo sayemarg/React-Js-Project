@@ -1,0 +1,36 @@
+.userTable {
+	border-collapse: collapse;
+	text-align: center;
+	width: 100%;
+}
+
+.userTable th:not(:first-child),
+.userTable td {
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.userTable th:not(:first-child) {
+	background-color: #616161;
+	color: white;
+	cursor: pointer;
+	user-select: none;
+}
+
+.userTable th[data-order="asc"]::before {
+	content: "⇧";
+	margin-right: 5px;
+}
+
+.userTable th[data-order="desc"]::before {
+	content: "⇩";
+	margin-right: 5px;
+}
+
+.userTable tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+.userTable tbody tr:nth-child(even) {
+	background-color: #eeeeee;
+}
