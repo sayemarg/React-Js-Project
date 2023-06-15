@@ -6,6 +6,7 @@ function useCountrySearch(countryName) {
 		queryKey: ["Countries", countryName],
 		queryFn: () => getCountriesList(countryName),
 		enabled: Boolean(countryName),
+		refetchOnWindowFocus: false,
 	});
 }
 

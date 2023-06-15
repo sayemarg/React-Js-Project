@@ -1,0 +1,16 @@
+.countryListItem {
+	background-color: #c4b0ff;
+	border-radius: 10px;
+	color: #000000;
+	cursor: pointer;
+	font-weight: bold;
+	margin: 10px;
+	padding: 15px;
+	text-align: center;
+	transition: background-color 0.5s ease;
+}
+
+.countryListItem.selected {
+	background-color: #4942e4;
+	color: #ffffff;
+}

@@ -1,5 +1,7 @@
 import CountriesList from "../components/CountriesList";
 import CountryPriceChart from "../components/CountryPriceChart";
+import Loader from "../components/Loader";
+import Styles from "./SearchBarPage.module.css";
 import useCountrySearch from "../hooks/useCountrySearch";
 import { useState } from "react";
 
@@ -21,19 +23,25 @@ function SearchBarPage() {
 		setSelectedCountryCode(countryCode);
 	};
 
-	const countriesList = useCountrySearch(userInput);
+	const countriesList = useCountrySearch(userInput.trim());
 
 	return (
 		<>
-			<h1>SearchBar Page</h1>
+			<h1 className={Styles.title}>SearchBar Page</h1>
 
-			<form onSubmit={(e) => e.preventDefault()}>
-				<input value={userInput} onChange={handleUserInputChange} />
-			</form>
+			<div>
+				<input
+					type="search"
+					className={Styles.searchInput}
+					onChange={handleUserInputChange}
+					value={userInput}
+					placeholder="Enter Country Name"
+				/>
+			</div>
 
 			<div>
 				{countriesList.isFetching ? (
-					"Loading data..."
+					<Loader />
 				) : (
 					<CountriesList
 						countriesList={countriesList.data}

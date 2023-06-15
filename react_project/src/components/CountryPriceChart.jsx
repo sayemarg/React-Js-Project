@@ -1,16 +1,17 @@
+import "chart.js/auto";
+import PropTypes from "prop-types";
 import { Line as LineChart } from "react-chartjs-2";
 import { getCountryChartData } from "../utils/network";
 import { getRandomRGBColor } from "../utils/random";
 import { useEffect, useRef, memo } from "react";
-import PropTypes from "prop-types";
-import "chart.js/auto";
+import { useQuery } from "@tanstack/react-query";
 
 const CountryPriceChart = memo(function CountryPriceChart({ countryCode }) {
 	const chartRef = useRef();
 
 	let updateChartInterval = useRef();
 
-	const chartData = {
+	const initialChartData = {
 		labels: [],
 		datasets: [
 			{
@@ -23,6 +24,16 @@ const CountryPriceChart = memo(function CountryPriceChart({ countryCode }) {
 			},
 		],
 	};
+
+	const chartDataQuery = useQuery({
+		queryKey: ["CountryChart", countryCode],
+		queryFn: () => getCountryChartData(countryCode),
+		enabled: Boolean(countryCode),
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+		initialData: null,
+		staleTime: 1000,
+	});
 
 	const addDataToChart = (label, data) => {
 		const chart = chartRef.current;
@@ -41,15 +52,21 @@ const CountryPriceChart = memo(function CountryPriceChart({ countryCode }) {
 		}
 
 		updateChartInterval.current = setInterval(async () => {
-			const chartData = await getCountryChartData(countryCode);
+			const { data } = await chartDataQuery.refetch();
 
-			addDataToChart(chartData.x, chartData.y);
+			addDataToChart(data.x, data.y);
 		}, 1000);
 
 		return () => clearInterval(updateChartInterval.current);
-	}, [countryCode]);
+	}, [countryCode, chartDataQuery]);
 
-	return <>{countryCode && <LineChart ref={chartRef} data={chartData} />}</>;
+	return (
+		<>
+			{countryCode && (
+				<LineChart ref={chartRef} data={initialChartData} />
+			)}
+		</>
+	);
 });
 
 CountryPriceChart.propTypes = {

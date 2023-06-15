@@ -1,9 +1,10 @@
 import CountryListItem from "./CountryListItem";
 import PropTypes from "prop-types";
+import Styles from "./CountriesList.module.css";
 
 function CountriesList({ countriesList, selectedCountryCode, onItemClick }) {
 	return (
-		<ul>
+		<ul className={Styles.countriesList}>
 			{countriesList &&
 				countriesList.map((data) => {
 					const country = data.item;
