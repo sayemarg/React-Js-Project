@@ -3,25 +3,28 @@ import CountryPriceChart from "../components/CountryPriceChart";
 import Loader from "../components/Loader";
 import Styles from "./SearchBarPage.module.css";
 import useCountrySearch from "../hooks/useCountrySearch";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 function SearchBarPage() {
 	const [userInput, setUserInput] = useState("");
 
-	const handleUserInputChange = (e) => {
+	const handleUserInputChange = useCallback((e) => {
 		setUserInput(e.target.value);
-	};
+	}, []);
 
 	const [selectedCountryCode, setSelectedCountryCode] = useState(null);
 
-	const changeSelectedCountry = (countryCode) => {
-		if (selectedCountryCode === countryCode) {
-			setSelectedCountryCode(null);
-			return;
-		}
+	const changeSelectedCountry = useCallback(
+		(countryCode) => {
+			if (selectedCountryCode === countryCode) {
+				setSelectedCountryCode(null);
+				return;
+			}
 
-		setSelectedCountryCode(countryCode);
-	};
+			setSelectedCountryCode(countryCode);
+		},
+		[selectedCountryCode]
+	);
 
 	const countriesList = useCountrySearch(userInput.trim());
 

@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
 import { ASC, DESC } from "../constants/sort";
+import { useState, useMemo } from "react";
 
 function useSortableTable(tableData) {
 	const [sortKey, setSortKey] = useState(null);

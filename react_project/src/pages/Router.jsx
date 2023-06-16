@@ -3,7 +3,7 @@ import LayoutPage from "./LayoutPage";
 import MainLayout from "../layouts/MainLayout";
 import SearchBarPage from "./SearchBarPage";
 import TablePage from "./TablePage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 const browserRouter = createBrowserRouter([
 	{
@@ -30,8 +30,4 @@ const browserRouter = createBrowserRouter([
 	},
 ]);
 
-function Router() {
-	return <RouterProvider router={browserRouter} />;
-}
-
-export default Router;
+export default browserRouter;

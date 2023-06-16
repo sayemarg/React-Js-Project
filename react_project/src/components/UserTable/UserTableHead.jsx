@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 
 function UserTableHead({ header, changeSortKey, sortKey, order }) {
+	const onClick = () => changeSortKey(header.key);
+
 	return (
 		<th
-			onClick={() => changeSortKey(header.key)}
+			onClick={onClick}
 			data-order={header.key === sortKey ? order : null}
 		>
 			{header.title}
